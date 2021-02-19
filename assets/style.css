@@ -1,0 +1,46 @@
+body {
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    background-color: #F7F7F7;
+}
+
+.header {
+    background-color: #222222;
+    height: 256px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.header-title {
+  font-size: 48px;
+  color: red;
+  text-align: center;
+}
+
+.header-description {
+    color: #ebdc0e;
+    margin: 4px auto;
+    text-align: center;
+    max-width: 600px;
+
+}
+.header-code-link {
+    color: #ebdc0e;
+    margin: 4px auto;
+    text-align: center;
+    max-width: 384px;
+
+}
+
+.header-status {
+    color: #fa9600;
+    margin: 4px auto;
+    text-align: center;
+    max-width: 384px;
+}
+
+.card {
+    margin-bottom: 24px;
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.18);
+}
