@@ -169,7 +169,7 @@ def sync_moving_average():
             if idx == 0:
                 df = chunk.rolling(window=20).mean()
             else:
-                df.append(chunk.rolling(window=20).mean())
+                df = df.append(chunk.rolling(window=20).mean())
         
         try:
             df["time"] = pd.to_datetime(df.ts) 
