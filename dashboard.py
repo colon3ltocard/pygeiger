@@ -40,7 +40,7 @@ def build_app_from_data(
             all_data,
             x="time",
             y="usv",
-            title="usv per hour - Rolling mean over all data",
+            title="usv per hour - subsampling 1/10th over all the dataset",
         )
     else:
         all_data_fig = None

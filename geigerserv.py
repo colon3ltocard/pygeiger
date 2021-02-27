@@ -157,7 +157,7 @@ def sync_get_latest():
 
 def sync_moving_average():
     """
-    Returns a Dataframe with a rolling average
+    Returns a Dataframe with a subsampling
     over all our data.
     """
 
@@ -165,14 +165,16 @@ def sync_moving_average():
         for idx, chunk in enumerate(
             pd.read_sql('select * from measurement ORDER BY "time" ASC', c, chunksize=1000)
         ):
-            chunk['ts'] = pd.DatetimeIndex(chunk.time).asi8
             if idx == 0:
-                df = chunk.rolling(window=20).mean()
+                if len(chunk) < 100:
+                    # one chunk, too small to subsample
+                    df = chunk
+                else:
+                    df = chunk[::10]
             else:
-                df = df.append(chunk.rolling(window=20).mean())
-        
+                df = df.append(chunk[::10])
+
         try:
-            df["time"] = pd.to_datetime(df.ts) 
             return df
         except UnboundLocalError:
             # empty database
