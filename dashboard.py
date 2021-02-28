@@ -47,35 +47,44 @@ def build_app_from_data(
     
     app.layout = html.Div(
         children=[
-            html.Div(
-                children=[
-                    html.H1(
-                        children="GMC-320 Geiger Counter Acquisition Dashboard",
-                        className="header-title",
-                    ),
-                    dcc.Interval(
-                        id="periodic-refresh",
-                        interval=15000,  # in milliseconds
-                    ),
-                    html.P(
-                        children="This dashboard displays the last 24 hours"
-                        " of data from our Wifi GMC-320 located in the center of Toulouse, France."
-                        " Auto-Refresh every 5 seconds.",
-                        className="header-description",
-                    ),
-                    html.A(
-                        href="https://github.com/colon3ltocard/pygeiger",
-                        children="Source Code on github",
-                        className="header-code-link",
-                    ),
-                    html.P(
-                        children="Sensor Status: Unknown",
-                        className="header-status",
-                        id="sensor-status",
-                    ),
-                ],
-                className="header",
-            ),
+            html.Div(children=[
+                html.Div(
+                    children=[
+                        html.Div(children=[
+                        html.H1(
+                            children="GMC-320 Geiger Counter Acquisition Dashboard",
+                            className="header-title",
+                        ),
+                        dcc.Interval(
+                            id="periodic-refresh",
+                            interval=15000,  # in milliseconds
+                        ),
+                        html.P(
+                            children="This dashboard displays the last 24 hours"
+                            " of data from our Wi-Fi GMC-320 located in the center of Toulouse, France."
+                            " Auto-Refresh every 15 seconds.",
+                            className="header-description",
+                        ),
+                        html.Div(children=[
+                        html.A(
+                            href="https://github.com/colon3ltocard/pygeiger",
+                            children="Source Code on github",
+                            className="header-code-link",
+                        ),
+                        html.A(
+                            href="/download",
+                            children="Download all data as csv",
+                            className="header-code-link",
+                        ),
+                        ], className="row", style={'margin-left': 'auto', 'margin-right': 'auto'}),
+                        html.P(
+                            children="Sensor Status: Unknown",
+                            className="header-status",
+                            id="sensor-status",
+                        ),
+                    ],className="header"),], className="col-9",
+                ),
+                html.Div(children=[html.Img(src="assets/gmc320.jpg", width="88%")], className="col-3"),], className="row"),
             html.Div(children=[dcc.Graph(id="cpm-graph")], className="card"),
             html.Div(
                 children=[dcc.Graph(id="all-graph", figure=all_data_fig)],
