@@ -115,7 +115,7 @@ def download_all(conn=Depends(get_connection)) -> StreamingResponse:
 
     def data_generator():
         for index, chunk in enumerate(
-            pd.read_sql("select * from measurement", conn, chunksize=1000)
+            pd.read_sql('select * from measurement ORDER BY "time" ASC', conn, chunksize=1000)
         ):
             if index == 0:
                 yield chunk.to_csv(index=False, header=True)
