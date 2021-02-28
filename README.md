@@ -25,7 +25,7 @@ Please note that trying to make this request yourself should be forbidden by the
 
 ## Overview 
 
-My instance of this website is running at http://geiger.tocardise.eu, you can get the latest measurement here http://geiger.tocardise.eu/latest and the API doc here: http://geiger.tocardise.eu/docs
+My instance of this website is running at http://geiger.tocardise.eu using Heroku free dynos, you can get the latest measurement here http://geiger.tocardise.eu/latest and the API doc here: http://geiger.tocardise.eu/docs
 
 Sometimes I take my device for a trip so there is no data for a while.
 
