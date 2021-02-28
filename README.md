@@ -42,6 +42,13 @@ It is also a technical playground to demonstrate several concepts:
 * the integration in the fastapi app of a [dash dashboard](https://pypi.org/project/dash/)
 * Streaming data out of a sql db using [pandas and chunking](https://pandas.pydata.org/docs/).
 * the deployment of the webservice using [Heroku free dynos](https://www.heroku.com).
+
+## Architecture
+
+The diagram below shows the current architecture of the device, the ISP box and the cloud deployment. 
+
+![Overall Architecture](doc/architecture.svg)
+
 ## Credits
 
 Thanks to RealPython for their [dash tutorial](https://realpython.com/python-dash/).
