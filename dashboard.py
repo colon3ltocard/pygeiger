@@ -55,7 +55,7 @@ def build_app_from_data(
                     ),
                     dcc.Interval(
                         id="periodic-refresh",
-                        interval=5000,  # in milliseconds
+                        interval=15000,  # in milliseconds
                     ),
                     html.P(
                         children="This dashboard displays the last 24 hours"
@@ -131,7 +131,7 @@ def build_app_from_data(
             latest = latest.time[0].replace(tzinfo=tz.UTC)
             n = datetime.datetime.now(tz=tz.UTC)
 
-            if latest < (n - datetime.timedelta(hours=24)):
+            if latest < (n - datetime.timedelta(minutes=5)):
                 return f"Sensor Status: OFFLINE (last measurement was on {latest:%B %d, %Y at %H:%m} UTC)"
             else:
                 return f"Sensor Status: ONLINE (last measurement was on {latest:%B %d, %Y at %H:%M} UTC)"
