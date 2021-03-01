@@ -115,7 +115,9 @@ def download_all(conn=Depends(get_connection)) -> StreamingResponse:
 
     def data_generator():
         for index, chunk in enumerate(
-            pd.read_sql('select * from measurement ORDER BY "time" ASC', conn, chunksize=1000)
+            pd.read_sql(
+                'select * from measurement ORDER BY "time" ASC', conn, chunksize=1000
+            )
         ):
             if index == 0:
                 yield chunk.to_csv(index=False, header=True)
@@ -163,7 +165,9 @@ def sync_moving_average():
 
     with safe_conn() as c:
         for idx, chunk in enumerate(
-            pd.read_sql('select * from measurement ORDER BY "time" ASC', c, chunksize=1000)
+            pd.read_sql(
+                'select * from measurement ORDER BY "time" ASC', c, chunksize=1000
+            )
         ):
             if idx == 0:
                 if len(chunk) < 100:
@@ -179,6 +183,7 @@ def sync_moving_average():
         except UnboundLocalError:
             # empty database
             return None
+
 
 @app.get("/url-list", dependencies=[Depends(protect)])
 def get_all_urls():
