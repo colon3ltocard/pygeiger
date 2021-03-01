@@ -106,7 +106,7 @@ def build_app_from_data(
                 x=df.time,
                 y=df.acpm,
                 name="acpm",
-                mode="lines",
+                mode="markers",
             )
             cpm = go.Scatter(
                 x=df.time,
