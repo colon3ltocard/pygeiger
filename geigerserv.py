@@ -162,23 +162,8 @@ def sync_moving_average():
     """
 
     with safe_conn() as c:
-        for idx, chunk in enumerate(
-            pd.read_sql('select * from measurement ORDER BY "time" ASC', c, chunksize=1000)
-        ):
-            if idx == 0:
-                if len(chunk) < 100:
-                    # one chunk, too small to subsample
-                    df = chunk
-                else:
-                    df = chunk[::10]
-            else:
-                df = df.append(chunk[::10])
-
-        try:
-            return df
-        except UnboundLocalError:
-            # empty database
-            return None
+        return pd.read_sql("select date_trunc('day', time) d, max(acpm) from measurement GROUP BY d ORDER BY d", c)
+ 
 
 @app.get("/url-list", dependencies=[Depends(protect)])
 def get_all_urls():

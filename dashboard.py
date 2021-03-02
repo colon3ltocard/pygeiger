@@ -36,11 +36,12 @@ def build_app_from_data(
     """
     all_data = all_data_rolling_avg_callback()
     if all_data is not None:
-        all_data_fig = px.scatter(
+        all_data.columns = ["day", "max acpm"]
+        all_data_fig = px.bar(
             all_data,
-            x="time",
-            y="usv",
-            title="usv per hour - subsampling 1/10th over all the dataset",
+            x="day",
+            y="max acpm",
+            title="max acpm per day",
         )
     else:
         all_data_fig = None
