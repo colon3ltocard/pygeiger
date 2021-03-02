@@ -10,7 +10,7 @@ body {
 
 .header {
     background-color: #222222;
-    height: 256px;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -26,7 +26,7 @@ body {
     color: #ebdc0e;
     margin: 4px auto;
     text-align: center;
-    max-width: 600px;
+    max-width: 100%;
 
 }
 .header-code-link {
@@ -41,7 +41,7 @@ body {
     color: #fa9600;
     margin: 4px auto;
     text-align: center;
-    max-width: 384px;
+    max-width: 100%;
 }
 
 .card {

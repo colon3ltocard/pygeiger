@@ -115,7 +115,9 @@ def download_all(conn=Depends(get_connection)) -> StreamingResponse:
 
     def data_generator():
         for index, chunk in enumerate(
-            pd.read_sql('select * from measurement ORDER BY "time" ASC', conn, chunksize=1000)
+            pd.read_sql(
+                'select * from measurement ORDER BY "time" ASC', conn, chunksize=1000
+            )
         ):
             if index == 0:
                 yield chunk.to_csv(index=False, header=True)
@@ -155,15 +157,16 @@ def sync_get_latest():
         return df
 
 
-def sync_moving_average():
+def max_acpm_per_day():
     """
     Returns a Dataframe with a subsampling
     over all our data.
     """
 
     with safe_conn() as c:
-        return pd.read_sql("select date_trunc('day', time) d, max(acpm) from measurement GROUP BY d ORDER BY d", c)
+        return pd.read_sql("select date_trunc('day', time) d, max(acpm), count(acpm) from measurement GROUP BY d ORDER BY d", c)
  
+
 
 @app.get("/url-list", dependencies=[Depends(protect)])
 def get_all_urls():
@@ -185,7 +188,7 @@ def get_last_24_hours():
 @app.on_event("startup")
 def startup_event():
     dash_app = build_app_from_data(
-        get_last_24_hours, sync_get_latest, sync_moving_average
+        get_last_24_hours, sync_get_latest, max_acpm_per_day
     )
     app.mount("/dashboard", WSGIMiddleware(dash_app.server))
 
