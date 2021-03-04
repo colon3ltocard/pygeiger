@@ -12,3 +12,4 @@ asyncpg==0.22.0
 psycopg2-binary==2.8.6
 dash==1.19.0
 python-dateutil==2.8.1
+dash-leaflet==0.1.13

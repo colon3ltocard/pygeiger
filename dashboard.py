@@ -6,6 +6,7 @@ import datetime
 from datetime import date
 from dateutil import tz
 import pandas as pd
+import dash_leaflet as dl
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -14,6 +15,8 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 
+TOULOUSE_GEO = (43.604652, 1.444209)
+SENSOR_LOC = (43.599844013541535, 1.4433743991768557)
 external_stylesheets = [
     {
         "href": "https://fonts.googleapis.com/css2?"
@@ -60,10 +63,17 @@ def build_app_from_data(
     else:
         all_data_fig = None
 
+    map_loc = dl.Map([dl.TileLayer(), dl.Marker(position=SENSOR_LOC)], zoom=11, center=TOULOUSE_GEO, 
+    style={'width': '100%', 'height': '28vh', 'margin': "auto", "display": "block"})
+
     app.layout = html.Div(
         children=[
             html.Div(
                 children=[
+                    html.Div(
+                        children=[map_loc],
+                        className="col-3",
+                    ),
                     html.Div(
                         children=[
                             html.Div(
@@ -110,7 +120,7 @@ def build_app_from_data(
                                 className="header",
                             ),
                         ],
-                        className="col-9",
+                        className="col-6",
                     ),
                     html.Div(
                         children=[html.Img(src="assets/gmc320.jpg", width="88%")],
