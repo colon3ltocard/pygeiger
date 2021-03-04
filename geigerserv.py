@@ -164,8 +164,10 @@ def max_acpm_per_day():
     """
 
     with safe_conn() as c:
-        return pd.read_sql("select date_trunc('day', time) d, max(acpm), count(acpm) from measurement GROUP BY d ORDER BY d", c)
- 
+        return pd.read_sql(
+            "select date_trunc('day', time) d, max(acpm), count(acpm) from measurement GROUP BY d ORDER BY d",
+            c,
+        )
 
 
 @app.get("/url-list", dependencies=[Depends(protect)])
@@ -187,9 +189,7 @@ def get_last_24_hours():
 
 @app.on_event("startup")
 def startup_event():
-    dash_app = build_app_from_data(
-        get_last_24_hours, sync_get_latest, max_acpm_per_day
-    )
+    dash_app = build_app_from_data(get_last_24_hours, sync_get_latest, max_acpm_per_day)
     app.mount("/dashboard", WSGIMiddleware(dash_app.server))
 
 

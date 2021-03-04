@@ -63,8 +63,25 @@ def build_app_from_data(
     else:
         all_data_fig = None
 
-    map_loc = dl.Map([dl.TileLayer(), dl.Marker(position=SENSOR_LOC)], zoom=11, center=TOULOUSE_GEO, 
-    style={'width': '100%', 'height': '28vh', 'margin': "auto", "display": "block"})
+    radicon = {
+        "iconUrl": "/dashboard/assets/radiation-solid.svg",
+        "iconSize": [30, 30],
+        "iconAnchor": [12, 41],
+        "popupAnchor": [1, -34],
+        "shadowSize": [41, 41],
+        "color": "orange",
+    }
+
+    map_loc = dl.Map(
+        [
+            dl.TileLayer(),
+            dl.Marker(position=SENSOR_LOC, icon=radicon),
+            dl.CircleMarker(center=SENSOR_LOC, color="blue", radius=3),
+        ],
+        zoom=11,
+        center=TOULOUSE_GEO,
+        style={"width": "100%", "height": "28vh", "margin": "auto", "display": "block"},
+    )
 
     app.layout = html.Div(
         children=[
